@@ -293,17 +293,57 @@ window.onload = function(){
         console.log(canvas);
         console.log(sticky);
         console.log(config);
-        if(sticky.group) {
+        if(config.group_left != null　&& sticky.group) { //送信側も受信側もグループ　の時
+          // var point = sticky.group.toLocalPoint(new fabric.Point(config.left, config.top), 'center', 'center');
           sticky.text = config.text;
-          var point = sticky.group.toLocalPoint(new fabric.Point(config.left, config.top), 'center', 'center');
-          sticky.left = point.x / sticky.group.scaleX;
-          sticky.top = point.y / sticky.group.scaleY;
+          sticky.left = config.left;
+          sticky.top = config.top;
           sticky.width = config.width;
           sticky.height = config.height;
-          sticky.scaleX = config.scaleX / sticky.group.scaleX;
-          sticky.scaleY = config.scaleY / sticky.group.scaleY;
-          sticky.angle = config.angle - sticky.group.angle;
-        } else {
+          sticky.scaleX = config.scaleX;
+          sticky.scaleY = config.scaleY;
+          sticky.angle = config.angle;
+          sticky.group.left = config.group_left;
+          sticky.group.top = config.group_top;
+          sticky.group.width = config.group_width;
+          sticky.group.height = config.group_height;
+          sticky.group.scaleX = config.group_scaleX;
+          sticky.group.scaleY = config.group_scaleY;
+          sticky.group.angle = config.group_angle;
+        } else if(config.group_left != null　&& !sticky.group) { //送信側がグループ、受信側が単独　の時
+          r = Math.sqrt(Math.pow((config.left),2) + Math.pow((config.top),2)); //group原点からsticky中央までの距離（半径として扱う）
+          radian = Math.atan2(config.top, config.left);　//group原点からsticky中央までのラジアン(角度)
+          group_radian = radian + (config.group_angle / 180 * Math.PI) //groupが傾いた時のstickyのラジアン
+          x = r * Math.cos(group_radian);  // group原点からのX座標
+          y = r * Math.sin(group_radian);  // group原点からのY座標
+          // ↑メソッドにまとめた方が良いでしょうか？
+          sticky.text = config.text;
+          sticky.left = x * config.group_scaleX + config.group_left;
+          sticky.top =  y * config.group_scaleY + config.group_top;
+          sticky.width = config.width;
+          sticky.height = config.height;
+          sticky.scaleX = config.scaleX * config.group_scaleX;
+          sticky.scaleY = config.scaleY * config.group_scaleY;
+            if(config.angle === 0){sticky.angle = config.group_angle}
+            else if(config.group_angle === 0){sticky.angle = config.angle}
+            else{sticky.angle = config.angle * config.group_angle};
+        } else if(config.group_left === null　&& sticky.group) { //送信側が単独、受信側がグループ　の時
+          sticky.text = config.text;
+          sticky.left = config.left - sticky.group.left;
+          sticky.top = config.top - sticky.group.top;
+          sticky.width = config.width;
+          sticky.height = config.height;
+          sticky.scaleX = config.scaleX/sticky.group.scaleX;
+          sticky.scaleY = config.scaleY/sticky.group.scaleY;
+          sticky.angle = config.angle/sticky.group.angle;
+          sticky.group.left = sticky.group.left;
+          sticky.group.top = sticky.group.top;
+          sticky.group.width = sticky.group.width;
+          sticky.group.height = sticky.group.height;
+          sticky.group.scaleX = sticky.group.scaleX;
+          sticky.group.scaleY = sticky.group.scaleY;
+          sticky.group.angle = sticky.group.angle;
+        }else{　//送信側も受信側も単独のとき
           sticky.text = config.text;
           sticky.left = config.left;
           sticky.top = config.top;
