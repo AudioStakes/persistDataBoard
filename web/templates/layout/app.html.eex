@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+  <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <![endif]-->
+  <meta name="viewport" content="width=980, maximum-scale=1.0, user-scalable=yes">
+  <meta name="description" content="DESCRIPTION">
+  <meta name="keywords" content="KEYWORDS">
+  <meta name="author" content="Seino">
+
+  <title>TITLE</title>
+
+  <link rel="stylesheet" href="<%= static_path(@conn, "/css/common.css") %>" media='all'>
+  <!--[if lt IE 9]>
+    <script src="javascripts/html5shiv.min.js"></script>
+  <![endif]-->
+    <script src="<%= static_path(@conn, "/js/lib/jquery.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/lib/fabric.min.js") %>"></script>
+    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+  <link rel="shortcut icon" href="">
+  <!--
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" sizes="196x196" href="">
+    <link rel="apple-touch-icon" sizes="152x152" href="">
+  -->
+
+</head>
+
+<body id="index">
+
+  <div class="container">
+
+    <header class="header clearfix" id="page-top">
+      <h1>
+
+      </h1>
+    </header>
+
+    <div class="contents">
+      <main class="content-main">
+      </main><!--/content-main-->
+    </div><!--/contents-->
+
+  </div>
+  <!--/container-->
+
+</body>
+</html>
